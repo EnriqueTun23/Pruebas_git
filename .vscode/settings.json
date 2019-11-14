@@ -1,0 +1,8 @@
+{
+    "ruby.rubocop.configFilePath": "\"ruby.rubocop.executePath\": \"\",",
+    "ruby.codeCompletion": "rcodetools",
+    "ruby.format": "rubocop",
+    "ruby.intellisense": "rubyLocate",
+    "ruby.rubocop.executePath": "\"ruby.rubocop.executePath\": \"\",",
+    "ruby.rubocop.suppressRubocopWarnings": true
+}

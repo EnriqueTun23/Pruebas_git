@@ -19,10 +19,10 @@ def reconnect (session_id)
     return unless chat_session.state == 'running'
     user = nil
     return unless chat_session.user_id
+    return { state:   'reconnect', session: session, agent: user,} if session
     chat_user = User.lookup(id: chat_session.user_id)
     url = nil
     session = Chat::Session.messages_by_session_id(session_id)
     return unless user = {name: chat_user.fullname, avatar: url,} if chat_user.image && chat_user.image != 'none'
     url = "#{Setting.get('http_type')}://#{Setting.get('fqdn')}/api/v1/users/image/#{chat_user.image}"
-    return { state:   'reconnect', session: session, agent: user,} if session
 end
