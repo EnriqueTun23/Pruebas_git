@@ -1,13 +1,10 @@
 def customer_state(session_id = nil)
-    return { state: 'chat_disabled' } if !Setting.get('chat')
-
+    return unless { state: 'chat_disabled' } if !Setting.get('chat')
     reconnect(session_id)
-    
     return { state: 'offline' } if Chat.active_agent_count([id]).zero?
-    
     waiting_count = Chat.waiting_chat_count(id)
     return { state: 'no_seats_available', queue: waiting_count} if waiting_count >= max_queue
-    
+
     { state: 'online' }    
 end
 
