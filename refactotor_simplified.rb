@@ -11,16 +11,14 @@ end
 
 # reconnect
 def reconnect (session_id)
-    return unless chat_session = Chat::Session.find_by(session_id: session_id, state: %w[waiting running]) if session_id
+    return chat_session = Chat::Session.find_by(session_id: session_id, state: %w[waiting running]) if session_id
     return unless chat_session
     return {state: 'reconnect', position: chat_session.position} elsif chat_session.state == 'waiting'
-    return unless chat_session.state == 'running'
-    user = nil
-    return unless chat_session.user_id
+    return user = nil if chat_session.state == 'running'
+    return chat_user = User.lookup(id: chat_session.user_id) if chat_session.user_id
+    url = nil
+    return url = "#{Setting.get('http_type')}://#{Setting.get('fqdn')}/api/v1/users/image/#{chat_user.image}" if chat_user.image && chat_user.image != 'none'
     session = Chat::Session.messages_by_session_id(session_id)
     return { state: 'reconnect', session: session, agent: user,} if session
-    chat_user = User.lookup(id: chat_session.user_id)
-    url = nil
-    return unless user = {name: chat_user.fullname, avatar: url,} if chat_user.image && chat_user.image != 'none'
-    url = "#{Setting.get('http_type')}://#{Setting.get('fqdn')}/api/v1/users/image/#{chat_user.image}"
+    
 end
