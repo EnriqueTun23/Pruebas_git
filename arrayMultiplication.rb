@@ -1,11 +1,12 @@
+
 def multiplication_list(list)
   list_multiplication = []
   multiplication = 1
-  list.each {|elemento| multiplication = multiplication * elemento}
+
+  list.each {|number| multiplication = multiplication * number}
   list.each do |validar|
      list_multiplication.push(multiplication/validar)
   end
-
   list_multiplication
 end
 
