@@ -6,10 +6,10 @@ class User
       @last_name = last_name
     end
 
-    def namefull
-      puts "#{name} #{last_name}"
+    def full_name
+      "#{name} #{last_name}"
     end
 end
 
 kike = User.new("Enrique", "Tun")
-kike.namefull
+puts kike.full_name
